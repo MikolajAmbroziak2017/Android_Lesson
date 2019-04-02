@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.text.TextPaint;
 import android.view.View;
 import android.widget.CalendarView;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -21,9 +23,13 @@ public class BornCalendary extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_born_calendary);
         Intent intent=getIntent();
-        int  dayToBorn=intent.getIntExtra("born",7);
+        Long  dayToBorn=intent.getLongExtra("born",0);
+        TextView tydzien=(TextView) findViewById(R.id.textView5);
+        TextView doPorodu=(TextView) findViewById(R.id.textView6);
         CalendarView calendarView=(CalendarView) findViewById(R.id.calendarView);
         calendarView.setMinDate(System.currentTimeMillis());
-        calendarView.setDate(System.currentTimeMillis()+dayLong*dayToBorn);
+        tydzien.setText(String.valueOf((280-dayToBorn)/7));
+        doPorodu.setText(String.valueOf(dayToBorn));
+        calendarView.setDate(System.currentTimeMillis()+dayLong*(dayToBorn));
     }
 }

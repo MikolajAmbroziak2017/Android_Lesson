@@ -2,16 +2,26 @@ package com.example.ambroziak;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 public class MainActivity extends AppCompatActivity {
-    private User user;
-    private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
+   public DatabaseHelper myDb;
+    public User user;
+
 
 
     @Override
@@ -19,14 +29,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        myDb=new DatabaseHelper(this);
+
     }
 
-    public void check_born(View view){
 
-        Intent intent =new Intent(this,BornCalendary.class);
-        intent.putExtra("born",user.getDayToBorn());
+    public void check_born(View view) {
+
+        Intent intent = new Intent(this, BornCalendary.class);
+        intent.putExtra("born",calcDayToBorn());
         startActivity(intent);
 
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public long calcDayToBorn()
+    {
+        LocalDateTime born=user.getBornDate();
+        LocalDateTime cur= LocalDateTime.now();
+        long between = DAYS.between(cur, born);
+        return between+1;
     }
 
     public User getUser() {
@@ -37,12 +58,25 @@ public class MainActivity extends AppCompatActivity {
         this.user = user;
     }
 
-    public void createUser(View view){
-        Intent intent3=new Intent(this,CreateUser.class);
-
-        startActivityForResult(intent3,SECOND_ACTIVITY_REQUEST_CODE);
-        user=(User) intent3.getParcelableExtra("user");
+    public void createUser(View view) {
+        Intent intent3 = new Intent(this, CreateUser.class);
+        startActivity(intent3);
     }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void readUserFromDb(View view){
+        SQLiteDatabase db=myDb.getWritableDatabase();
+        int choosen;
+        Spinner spinner=(Spinner)findViewById(R.id.spinner) ;
+        choosen=Integer.parseInt(String.valueOf(spinner.getSelectedItem()));
+        Cursor c = db.rawQuery("SELECT * FROM USER WHERE ID = '"+choosen+"'", null);
+        c.moveToNext();
+        String name=c.getString(c.getColumnIndex("NAME"));
+        String childName=c.getString(c.getColumnIndex("CHILDNAME"));
+        String gender=c.getString(c.getColumnIndex("GENDER"));
+        String Date=c.getString(c.getColumnIndex("DATE"));
+        TextView textView=(TextView)findViewById(R.id.textView10);
 
-
+        user=new User(LocalDateTime.parse(Date),name,childName,gender.charAt(0));
+        textView.setText(user.toString());
+    }
 }
