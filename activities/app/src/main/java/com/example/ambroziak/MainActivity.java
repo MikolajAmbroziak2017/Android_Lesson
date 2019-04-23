@@ -1,6 +1,6 @@
 package com.example.ambroziak;
 
-import android.app.Activity;
+
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,11 +9,8 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static java.time.temporal.ChronoUnit.DAYS;
@@ -34,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void check_born(View view) {
 
         Intent intent = new Intent(this, BornCalendary.class);
@@ -41,6 +39,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void goToBabyInformation(View view){
+        Intent intent= new Intent(this,PregnancyInfo.class);
+        int week= (int) ((280-calcDayToBorn())/7);
+        intent.putExtra("week",week);
+        startActivity(intent);
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     public long calcDayToBorn()
     {

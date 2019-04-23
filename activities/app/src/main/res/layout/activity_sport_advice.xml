@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SportAdvice">
+
+    <ImageView
+        android:id="@+id/sport_image"
+        android:layout_width="392dp"
+        android:layout_height="219dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="59dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="60dp"
+        android:contentDescription='"sport_advice"'
+        app:layout_constraintBottom_toTopOf="@+id/sport_advice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/sport" />
+
+    <TextView
+        android:id="@+id/sport_advice"
+        android:layout_width="349dp"
+        android:layout_height="203dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="190dp"
+        android:contentDescription="Porady "
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sport_image" />
+</android.support.constraint.ConstraintLayout>
