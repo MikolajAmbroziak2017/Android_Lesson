@@ -58,13 +58,9 @@ public void onClick(View view){
 }
 
 public void addToDb(String name,String childName,String gender,String date){
-    SQLiteDatabase db=myDb.getWritableDatabase();
-    ContentValues values=new ContentValues();
-    values.put("NAME",name);
-    values.put("CHILDNAME",childName);
-    values.put("GENDER",gender);
-    values.put("DATE",date);
-    db.insert("USER",null,values);
+    UpdateUser updateUser=new UpdateUser(myDb,getApplicationContext());
+    updateUser.doInBackground(new String[]{name,childName,gender,date});
+
 }
 
 }
