@@ -132,6 +132,16 @@
         app:layout_constraintTop_toBottomOf="@+id/wprowadzanie"
         app:layout_constraintVertical_bias="0.125" />
 
+    <TextView
+        android:text="text"
+        android:id="@+id/distance"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:singleLine="false"
+        android:textSize="50dp" />
+
 
 </android.support.constraint.ConstraintLayout>
 
